@@ -10,38 +10,47 @@ public class SignBoard {
     private int yOffset;
 
     private String makeBorder(int width) {
-        StringBuffer sb = new StringBuffer();
-        for (int c = 0; c < numCols - 1; ++c)
-            sb.append("=");
-        return sb.toString();
+        StringBuffer builder = new StringBuffer();
+        for (int c = 0; c < numCols; ++c)
+            builder.append("=");
+        return builder.toString();
     }
 
     public SignBoard(int height) {
         this.height = height;
-        terminal = new AnsiTerminal(System.out);
+        terminal = new AnsiTerminal();
         terminal.reset();
         terminal.hideCursor();
         terminal.setBackgroundColor(AnsiTerminal.Color.BLACK);
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                reset();
+            }
+        });
     }
 
     public void clear() {
         // Find out the size of the terminal currently.
         numCols = TerminalSize.getNumColumns();
         numRows = TerminalSize.getNumLines();
+
+        // Figure out where in the terminal we'll draw the sign board.
         if (height + 2 > numRows)
             throw new RuntimeException("terminal too short");
         yOffset = (numRows - (height + 2)) / 2 + 2;
 
+        // Clear the screen.
         terminal.clear();
-
+        // Draw borders around the sign board.
         String border = makeBorder(numCols);
         terminal.setTextColor(AnsiTerminal.Color.WHITE, false);
         terminal.moveTo(-1 + yOffset, 0 + xOffset);
-        System.out.print(border);
+        terminal.write(border);
         terminal.moveTo(height + yOffset, 0 + xOffset);
-        System.out.print(border);
+        terminal.write(border);
 
-        terminal.setTextColor(AnsiTerminal.Color.WHITE, true);
+        setWhite();
     }
 
     public int getWidth() {
@@ -75,7 +84,7 @@ public class SignBoard {
             throw new IllegalArgumentException("y = " + y);
 
         terminal.moveTo(y + yOffset, x + xOffset);
-        System.out.print(text);
+        terminal.write(text);
     }
 
     public void pause(double time) {
@@ -84,5 +93,11 @@ public class SignBoard {
         } catch (InterruptedException e) {
             // Ignore.
         }
+    }
+
+    public void reset() {
+        terminal.reset();
+        terminal.scroll(1);
+        terminal.moveTo(numRows, 0);
     }
 }

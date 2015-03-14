@@ -1,38 +1,48 @@
 package nyc.c4q.ac21.signboard;
 
-import java.io.PrintStream;
+import java.io.*;
 
 public class AnsiTerminal {
 
-    private static final char ESCAPE = 0x1b;
-    private static final String CSI = ESCAPE + "[";
+    private static final byte ESCAPE = 0x1b;
 
-    private final PrintStream out;
+    private final FileOutputStream out;
 
-    private void escape(char code) {
-        out.print(CSI + code);
+    private void write(byte b) {
+        try {
+            out.write(b);
+        } catch (IOException e) {
+            // Ignore.
+        }
     }
 
-    private void escape(String code) {
-        out.print(CSI + code);
+    public void write(String string) {
+        try {
+            out.write(string.getBytes());
+        }
+        catch (IOException e) {
+            // Ignore.
+        }
     }
 
-    private void escape(int arg, char code) {
-        out.print(CSI + arg + code);
+    private void csi(String code) {
+        write(ESCAPE);
+        write((byte) '[');
+        write(code);
+    }
+
+    private void csi(int arg, char code) {
+        csi(Integer.toString(arg) + code);
     }
 
     private void escape(int arg0, int arg1, char code) {
-        out.print(CSI + arg0 + ';' + arg1 + code);
+        csi(Integer.toString(arg0) + ';' + arg1 + code);
     }
 
     private void sgr(int code) {
         assert 0 <= code && code < 107;
-        escape(code, 'm');
+        csi(code, 'm');
     }
-
-    /**************************************************************************
-    * Public interface.
-    **************************************************************************/
 
     public static enum Color {
         BLACK,
@@ -49,7 +59,14 @@ public class AnsiTerminal {
         }
     }
 
-    public AnsiTerminal(PrintStream out) {
+    public AnsiTerminal() {
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(new File("/dev/tty"));
+        } catch (FileNotFoundException e) {
+            // Fall back to stdout.
+            out = new FileOutputStream(java.io.FileDescriptor.out);
+        }
         this.out = out;
     }
 
@@ -58,7 +75,7 @@ public class AnsiTerminal {
     }
 
     public void clear() {
-        escape(2, 'J');
+        csi(2, 'J');
     }
 
     public void setTextColor(Color color, boolean intense) {
@@ -82,11 +99,15 @@ public class AnsiTerminal {
     }
 
     public void hideCursor() {
-        escape("?25l");
+        csi("?25l");
     }
 
     public void showCursor() {
-        escape("?25h");
+        csi("?25h");
+    }
+
+    public void scroll(int numLines) {
+        csi(numLines, 'S');
     }
 
 }
