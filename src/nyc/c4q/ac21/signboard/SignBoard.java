@@ -34,6 +34,14 @@ public class SignBoard {
         });
     }
 
+    public int getWidth() {
+        return numCols;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void clear() {
         // Figure out where in the terminal we'll draw the sign board.
         if (height + 2 > numRows)
@@ -51,14 +59,6 @@ public class SignBoard {
         terminal.write(border);
 
         setWhite();
-    }
-
-    public int getWidth() {
-        return numCols;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
     public void setWhite() {
