@@ -82,10 +82,11 @@ public class Main {
 
     public static void main(String[] args) {
         SignBoard signBoard = new SignBoard(8);
-        ribbonScene(signBoard, 32);
-        scrollWordScene(signBoard, "F A L A F E L");
-        ribbonScene(signBoard, 32);
-        flash2Scene(signBoard, "FRESH", "HOT", 12);
-        ribbonScene(signBoard, 32);
+        while (true) {
+            ribbonScene(signBoard, 32);
+            scrollWordScene(signBoard, "F A L A F E L");
+            ribbonScene(signBoard, 32);
+            flash2Scene(signBoard, "FRESH", "HOT", 12);
+        }
     }
 }
