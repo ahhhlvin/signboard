@@ -17,6 +17,10 @@ public class SignBoard {
     }
 
     public SignBoard(int height) {
+        // Find out the size of the terminal currently.
+        numCols = TerminalSize.getNumColumns();
+        numRows = TerminalSize.getNumLines();
+
         this.height = height;
         terminal = new AnsiTerminal();
         terminal.reset();
@@ -31,10 +35,6 @@ public class SignBoard {
     }
 
     public void clear() {
-        // Find out the size of the terminal currently.
-        numCols = TerminalSize.getNumColumns();
-        numRows = TerminalSize.getNumLines();
-
         // Figure out where in the terminal we'll draw the sign board.
         if (height + 2 > numRows)
             throw new RuntimeException("terminal too short");

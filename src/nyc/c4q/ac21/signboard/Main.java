@@ -5,11 +5,10 @@ import java.util.Random;
 public class Main {
 
     public static void ribbonScene(SignBoard board, int numCycles) {
+        int width = board.getWidth();
+        int height = board.getHeight();
         for (int i = 0; i < numCycles; ++i) {
             board.clear();
-            int width = board.getWidth();
-            int height = board.getHeight();
-
             for (int x = -2; x < width; ++x) {
                 int y = (2 * height - 2 + x + i) % (2 * height - 2);
                 if (y >= height)
@@ -33,14 +32,13 @@ public class Main {
     }
 
     public static void scrollWordScene(SignBoard board, String text) {
-        int x = -text.length() + 1;
         board.setWhite();
-        while (true) {
+        int width = board.getWidth();
+        int y = board.getHeight() / 2;
+        for (int x = -text.length(); x >= width; ++x) {
             board.clear();
-            int width = board.getWidth();
             if (x >= width)
                 break;
-            int y = board.getHeight() / 2;
 
             if (x < 0)
                 // Scrolling on to the left side.
@@ -59,18 +57,24 @@ public class Main {
 
     public static void flash2Scene(SignBoard board, String leftText, String rightText, int cycles) {
         Random random = new Random();
+        int width = board.getWidth();
+        int leftPosition = width / 4 - leftText.length() / 2;
+        int rightPosition = 3 * width / 4 - rightText.length() / 2;
+        int y = board.getHeight() / 2;
+
         for (int i = 0; i < cycles * 2; ++i) {
             board.clear();
-            int width = board.getWidth();
-            int leftPosition = width / 4 - leftText.length() / 2;
-            int rightPosition = 3 * width / 4 - rightText.length() / 2;
-            int y = board.getHeight() / 2;
 
+            // Choose a color at random.
             int color = random.nextInt(4);
-            if (color == 0) board.setGreen();
-            else if (color == 1) board.setRed();
-            else if (color == 2) board.setWhite();
-            else board.setYellow();
+            if (color == 0)
+                board.setGreen();
+            else if (color == 1)
+                board.setRed();
+            else if (color == 2)
+                board.setWhite();
+            else
+                board.setYellow();
 
             if (i % 2 == 0)
                 board.write(leftPosition, y, leftText);
@@ -83,10 +87,10 @@ public class Main {
     public static void main(String[] args) {
         SignBoard signBoard = new SignBoard(8);
         while (true) {
-            ribbonScene(signBoard, 32);
+            ribbonScene(signBoard, 48);
             scrollWordScene(signBoard, "F A L A F E L");
-            ribbonScene(signBoard, 32);
-            flash2Scene(signBoard, "FRESH", "HOT", 12);
+            ribbonScene(signBoard, 48);
+            flash2Scene(signBoard, "FRESH", "HOT", 8);
         }
     }
 }
