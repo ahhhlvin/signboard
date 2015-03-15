@@ -35,7 +35,7 @@ public class Main {
         board.setWhite();
         int width = board.getWidth();
         int y = board.getHeight() / 2;
-        for (int x = -text.length(); x >= width; ++x) {
+        for (int x = -text.length(); x <= width; ++x) {
             board.clear();
             if (x >= width)
                 break;
@@ -50,12 +50,11 @@ public class Main {
                 // Scrolling off the board.
                 board.write(x, y, text.substring(0, width - x));
 
-            x += 1;
             board.pause(0.02);
         }
     }
 
-    public static void flash2Scene(SignBoard board, String leftText, String rightText, int cycles) {
+    public static void flash2WordsScene(SignBoard board, String leftText, String rightText, int cycles) {
         Random random = new Random();
         int width = board.getWidth();
         int leftPosition = width / 4 - leftText.length() / 2;
@@ -90,7 +89,7 @@ public class Main {
             ribbonScene(signBoard, 48);
             scrollWordScene(signBoard, "F A L A F E L");
             ribbonScene(signBoard, 48);
-            flash2Scene(signBoard, "FRESH", "HOT", 8);
+            flash2WordsScene(signBoard, "FRESH", "HOT", 8);
         }
     }
 }

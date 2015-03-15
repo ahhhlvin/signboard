@@ -1,0 +1,12 @@
+#!/bin/bash
+
+dir=$(dirname $0)
+classdir=$dir/out/production/signboard
+if ! [[ -d $classdir ]]; then
+  echo "missing $classdir; have you compiled your code?" >&2
+  exit 1
+fi
+
+export CLASSPATH=$classdir
+exec java nyc.c4q.ac21.signboard.Main
+

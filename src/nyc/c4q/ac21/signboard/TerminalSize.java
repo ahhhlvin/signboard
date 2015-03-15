@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Code for determining the terminal size.
+ */
 public class TerminalSize {
 
     private static int runTput(String command) {

@@ -2,6 +2,11 @@ package nyc.c4q.ac21.signboard;
 
 import java.io.*;
 
+/**
+ * Wrapper for a terminal that understands ANSI escape codes.
+ *
+ * See http://en.wikipedia.org/wiki/ANSI_escape_code .
+ */
 public class AnsiTerminal {
 
     private static final byte ESCAPE = 0x1b;
