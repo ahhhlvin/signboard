@@ -1,12 +1,12 @@
 Fresh Hot Falafel!
 ==
 
-**FIXME: Video URL here.**
+https://www.youtube.com/watch?v=1s0ksX4qfJg
 
 Objective
 --
 
-In this project, we'll program the animated LED sign board for a New York falafel stand.  While doing this, we'll also practice using an API (_application programming interface_) that provides capabilities for our program to use.  In this case, we'll use a pre-built API for the sign board itself; our job is to invent interesting and attractive animations for the board. 
+In this project, we'll program the animated LED sign board for a New York falafel cart.  While doing this, we'll also practice using an API (_application programming interface_) that provides capabilities for our program to use.  In this case, we'll use a pre-built API for the sign board itself; our job is to invent interesting and attractive animations for the board. 
 
 
 Setup
@@ -22,7 +22,7 @@ Clone this repository as follows.
    $ cd Desktop/accesscode
    ```
    
-3. Clone this repository.
+3. Clone this repository.  Use the URL of your group's forked repo.
 
    ```
    $ git clone <URL>
@@ -31,7 +31,7 @@ Clone this repository as follows.
    
 4. Open the project in IntelliJ and compile it.
    
-4. Run the sample code.
+4. Invoke the provided run script to run the sample code.
 
    ```
    $ ./run
@@ -106,13 +106,13 @@ You may call `write()` as many times as you need to draw your frame.  Use your c
 | `y >= 0` | text cannot appear above the top edge |
 | `y < getHeight()` | text cannot appear below the bottom edge |
 
-You may also use colors.  Whenever you clear the frame, the writing color is reset to white.  You may call any of these methods to switch colors; all subsequent calls to `write()` will use that color, until you change it again.
+You may also use colors.  Whenever you clear the frame, the text color is set to white.  You may call any of these methods to switch colors; all subsequent calls to `write()` will use that color, until you change it again.
 
 ```java
-board.setRed();
-board.setYellow();
 board.setGreen();
+board.setRed();
 board.setWhite();
+board.setYellow();
 ```
 
 Running your program
@@ -124,40 +124,32 @@ You may, however, continue to write, edit, and compile your code in IntelliJ.  R
 
 Follow these steps to do so:
 
-1. Open a terminal window.  Press Command-Space to open Spotlight, and enter "terminal".
-
+1. Open a terminal window. 
 2. In the terminal window, navigate to the directory where you cloned this repository.
 
   ```
   $ cd
   $ cd Desktop/accesscode/signboard
   ```
-
-3. Enter the directory where IntelliJ stores the class files.
+3. Invoke the run script.
 
   ```
-  $ cd out/production/signboard
+  $ ./run
   ```
   
-4. Run Java manually.
-
-  ```
-  $ java nyc.c4q.ac21.signboard.Main
-  ```
-  
-Keep the terminal window open.  As you edit your program and wish to test it out, switch back to the terminal window and repeat the command in step 4 to run it.
+Keep the terminal window open.  As you edit your program and wish to test it out, switch back to the terminal window and run `./run` to start it.
 
 Some extra hints:
 
 * If Java complains "cannot find or load main class", check the following:
   * Does your program contain errors?  If IntelliJ highlights any of your code with red, or shows compile errors at the bottom, the compiler has failed to compile your code.  Fix the errors before trying again.
   * Have you compiled your code in IntelliJ?  Select `Build > Make Project` from the menu, or press Command-F9.
-  * Double-check that you are in the right directory.  If you run `ls`, it should look like this.
-  
-    ```
-    $ ls
-    nyc
-    ```
+
+    
+* If your program is stuck or running in an infinite loop, press Control-C to kill it.
+
+* If your terminal gets messed up, for instance the cursor is gone or the colors are wrong, run the `reset` command to reset it.
+
 * You can configure IntelliJ to compile automatically and continuously as you edit your code.  Open the Preferences window by pressing Command-, and find `Build, Execution, Deployment > Compiler` on the left side.  Find the `Make project automatically` checkbox and check it.
 
 
