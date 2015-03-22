@@ -10,6 +10,8 @@ public class Main {
      * @param numCycles
      *   The number of cycles to draw for.
      */
+
+
     public static void ribbonScene(SignBoard board, int numCycles) {
         int width = board.getWidth();
         int height = board.getHeight();
@@ -21,11 +23,11 @@ public class Main {
                 if (y >= height)
                     y = 2 * height - y - 2;
                 if (0 < x) {
-                    frame.setYellow();
+                    frame.setWhite();
                     frame.write(x, y, "*");
                 }
                 if (0 < x + 1 && x + 1 < width) {
-                    frame.setGreen();
+                    frame.setWhite();
                     frame.write(x + 1, y, "*");
                 }
                 if (x + 2 < width) {
@@ -86,29 +88,32 @@ public class Main {
             SignBoard.Frame frame = board.newFrame();
 
             // Choose a color at random.
-            int color = random.nextInt(4);
+            int color = random.nextInt(3);
             if (color == 0)
                 frame.setGreen();
             else if (color == 1)
-                frame.setRed();
-            else if (color == 2)
                 frame.setWhite();
             else
                 frame.setYellow();
             // Write a word.
             if (i % 2 == 0) {
-                frame.write(leftPosition, y - 2, "FFFF RRR  EEEE  SSS H  H");
-                frame.write(leftPosition, y - 1, "F    R RR E    SS   H  H");
-                frame.write(leftPosition, y    , "FFR  RRR  EEE   SS  HHHH");
-                frame.write(leftPosition, y + 1, "F    R R  E      SS H  H");
-                frame.write(leftPosition, y + 2, "F    R  R EEEE SSS  H  H");
+
+                frame.write(leftPosition, y - 3, "::::::::::: ::::::::  ::::::::::");
+                frame.write(leftPosition, y - 2, "    :+:    :+:    :+: :+:       ");
+                frame.write(leftPosition, y - 1, "    +:+    +:+        +:+       ");
+                frame.write(leftPosition, y    , "    +#+    +#+        +#++:++#  ");
+                frame.write(leftPosition, y + 1, "    +#+    +#+        +#+       ");
+                frame.write(leftPosition, y + 2, "    #+#    #+#    #+# #+#       ");
+                frame.write(leftPosition, y + 3, "########### ########  ##########");
             }
             else {
-                frame.write(rightPosition, y - 2, "H  H  OO  TTTT");
-                frame.write(rightPosition, y - 1, "H  H O  O  TT ");
-                frame.write(rightPosition, y    , "HHHH O  O  TT ");
-                frame.write(rightPosition, y + 1, "H  H O  O  TT ");
-                frame.write(rightPosition, y + 2, "H  H  OO   TT ");
+                frame.write(rightPosition, y - 3, " ::::::::   ::::::::  :::        :::::::::  ");
+                frame.write(rightPosition, y - 2, ":+:    :+: :+:    :+: :+:        :+:    :+: ");
+                frame.write(rightPosition, y - 1, "+:+        +:+    +:+ +:+        +:+    +:+ ");
+                frame.write(rightPosition, y    , "+#+        +#+    +:+ +#+        +#+    +:+ ");
+                frame.write(rightPosition, y + 1, "+#+        +#+    +#+ +#+        +#+    +#+ ");
+                frame.write(rightPosition, y + 2, "#+#    #+# #+#    #+# #+#        #+#    #+# ");
+                frame.write(rightPosition, y + 3, " ########   ########  ########## #########  ");
             }
 
             frame.finish(0.25);
