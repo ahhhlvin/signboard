@@ -15,7 +15,7 @@ public class SignBoard {
     private String makeBorder(int width) {
         StringBuffer builder = new StringBuffer();
         for (int c = 0; c < numCols; ++c)
-            builder.append("=");
+            builder.append("@@");
         return builder.toString();
     }
 
